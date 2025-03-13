@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Check if the script is run as root
+if [ "$(id -u)" -ne 0 ]; then
+    echo "Please run this script as root."
+    exit 1
+fi
+
+# Prompt for username
+read -p "Enter the new username: " username
+
+# Check if the user already exists
+if id "$username" &>/dev/null; then
+    echo "User '$username' already exists."
+    exit 1
+fi
+
+# Create the user
+useradd -m -s /bin/bash "$username"
+if [ $? -ne 0 ]; then
+    echo "Failed to create user."
+    exit 1
+fi
+
+# Prompt for password
+read -s -p "Enter password for the user: " password
+echo
+read -s -p "Confirm password: " password_confirm
+echo
+
+# Check if passwords match
+if [ "$password" != "$password_confirm" ]; then
+    echo "Passwords do not match. Exiting."
+    exit 1
+fi
+
+# Set the password
+echo "$username:$password" | chpasswd
+
+# Force the user to change the password on first login
+passwd --expire "$username"
+
+echo "User '$username' has been created successfully!"
+
+
+Note - for run this script use < sudo su >
