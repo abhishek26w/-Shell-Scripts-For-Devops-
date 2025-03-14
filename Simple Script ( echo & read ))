@@ -1,0 +1,20 @@
+#!/bin/bash
+
+<<note
+this is demo file
+
+note
+
+echo " what is your name ? "
+read name
+echo " my name is $name "
+
+echo what is your name ?
+read name2
+echo " my name is $name2 "
+read -p " what are you doing ? "
+read -p " now i am reading shell script "
+echo " and you ? "
+read -p " i am also "
+echo " ok, bye "
+~                    
