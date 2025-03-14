@@ -1,0 +1,31 @@
+#!/bin/bash
+
+<<disclaimer
+
+This is just for infotainment purpose
+
+disclaimer
+
+# This is function definition
+
+function batman() {
+
+read -p "$1 who is batman ?" catwoman
+
+read -p "$1 catwoman love in  %" love
+
+if [[ $superman == "bruce wayne"  ]];
+then
+        echo "$1 I don't know"
+elif [[ $love -ge 100 ]];
+then
+        echo "$1 is loyal"
+else
+        echo "$1 is not loyal"
+fi
+}
+
+# This is function call
+
+batman "Dark-knight"
+~                                                                                                       ~                                   
