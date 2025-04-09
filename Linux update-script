@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo " ******************system upgrade process******************* "
+
+sudo apt-get update && upgrade
+sudo apt-get instal $1-y
+sudo systemctl start $1
+sudo systemctl start $1
+sudo systemctl enable $1
+
+echo " ******************system upgrade process successfull******************* "
+~                                                                                   
