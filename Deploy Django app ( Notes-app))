@@ -1,0 +1,53 @@
+#!/bin/bash
+
+<< note
+
+deploy Django app & handle the code for error
+
+note
+
+code_clone() {
+
+                echo "clonnig Django app..."
+        if [ ! -d "djagno-notes-app" ]; then
+                      git clone https://github.com/LondheShubham153/django-notes-app.git
+        fi
+
+                      cd django-notes-app || exit 1
+                }
+
+install_requirements() {
+
+                        echo "Installing Dependencies"
+                        sudo apt-get update && sudo apt-get upgrade -y
+                        sudo apt-get install docker.io nginx docker-compose -y
+                }
+
+require_restart() {
+                        sudo chown "$USER" /var/run/docker.sock
+                        sudo systemctl enable docker
+                        sudo systemctl enable nginx
+                        sudo systemctl restart docker
+                }
+
+
+deploy() {
+
+        docker build -t notes-app .
+        docker run -d -p 8000:8000 notes-app:latest
+        docker-compose up -d
+}
+
+
+echo "***********************Deployment Started**********************"
+
+code_clone || { echo "code clone failed"; exit 1; }
+
+install_requirements || { echo "installation failed"; exit 1; }
+
+require_restart || {   echo "system fault identified"; exit 1; }
+
+deploy
+
+
+echo "***********************Deployment Successfull**********************"
